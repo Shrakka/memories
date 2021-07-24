@@ -1,0 +1,5 @@
+.board {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(5, min-content) // 5 columns: each column width matches its content width
+}

@@ -1,0 +1,50 @@
+@import "../assets/variable";
+
+#leaderboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        color: $middle-blue;
+        font-size: 50px;
+        padding: 25px;
+    }
+
+    button {
+        width: 30%;
+        padding: 20px;
+        font-size: 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        color: $middle-blue;
+        background-color: $light-blue;
+        border: none;
+
+        @extend %fancy-box-shadow;
+        @extend %mobile-media-support;
+    }
+
+    ol {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        margin-top: 20px;
+        counter-reset: number; // See statistic.scss
+
+        @extend %mobile-media-support;
+    }
+}
+
+%fancy-box-shadow {
+    box-shadow: 0px 6px 13px -2px royalblue;
+}
+
+
+%mobile-media-support {
+    @media (max-width: 500px) {
+        width: 90%;
+    }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "memories",
+  "version": "1.0.0",
+  "description": "Memories Game",
+  "main": "server/index.js",
+  "scripts": {
+    "build": "npx webpack",
+    "start": "node server/index.js",
+    "dev:client": "npx webpack --watch",
+    "dev:backend": "nodemon server/index.js"
+  },
+  "author": "Enzo TESTA",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.6.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "nodemon": "^2.0.12",
+    "sass": "^1.35.2",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.1.0",
+    "webpack": "^5.45.1",
+    "webpack-cli": "^4.7.2"
+  }
+}

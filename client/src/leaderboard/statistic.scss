@@ -1,0 +1,21 @@
+.statistic {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+
+    &:before {
+        // https://developer.mozilla.org/fr/docs/Web/CSS/::before
+        // Interesting way to inject text content using speudo-elements in CSS
+        // The 'counter-reset' prop should be put on the parent (wrapping .ol in leaderboard.scss))
+        counter-increment: number;
+        content: counter(number) ".";
+        margin-right: 30px;
+    }
+
+    .value {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

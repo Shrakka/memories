@@ -1,0 +1,46 @@
+@import "../../assets/_variable";
+
+@mixin responsiveStyling($icon-size) {
+    .card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: #{$icon-size * 2};
+        height: #{$icon-size * 3};
+        cursor: pointer;
+
+        // Fancy boarder and background
+        // Done with the help of https://cssgradient.io/ & https://html-css-js.com/css/generator/box-shadow/
+        box-sizing: border-box;
+        border-radius: 15px;
+        box-shadow: 0px 6px 13px -2px $dark-blue;
+        background: linear-gradient(35deg, $dark-blue 0%, $middle-blue 35%, $light-blue 100%);
+
+        &.selected {
+            background: white;
+            border: 3px solid $middle-blue;
+            cursor: default;
+
+            .icon {
+                width: $icon-size;
+                height: $icon-size;
+            }
+        }
+    }
+
+    @for $icon-index from 0 through 17 {
+        .icon-#{$icon-index} {
+            background-image: url("../../assets/cards.png");
+            background-size: #{$icon-size};
+            background-position-y: #{(-1) * $icon-index * $icon-size};
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    @include responsiveStyling($icon-size: 25px);
+}
+@media (min-width: 500px) {
+    @include responsiveStyling($icon-size: 80px);
+}

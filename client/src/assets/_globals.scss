@@ -1,0 +1,11 @@
+@import "./_variable.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Gill Sans", sans-serif;
+    background-color: $very-light-blue;
+}

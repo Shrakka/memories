@@ -1,0 +1,27 @@
+@import "../../assets/variable";
+
+#timer {
+    position: relative;
+
+    width: 80%;
+    height: 30px;
+
+    margin: 20px;
+
+    .progress-bar-container {
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+
+        background-color: white;
+    }
+
+    .progress-bar {
+        position: absolute;
+
+        height: 100%;
+
+        background-color: $middle-blue;
+    }
+}

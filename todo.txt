@@ -1,0 +1,48 @@
+- [ ] Presentation view
+- [ ] Input name
+- [ ] Model
+- [ ] Card CSS
+- [ ] Exit mode
+- [ ] Reset
+- [ ] Timer
+- [ ] Display leaderboard
+- [ ] Tests
+- [ ] Deploy on heroku
+
+
+
+3 Modes:
+	- 4x5 -> 20
+	- 4x7 -> 28
+	- 4x9 -> 36
+
+
+
+const game = new Game();
+
+new Card(x, y, value);
+
+
+const cards = game.getCards();
+
+for card in cards {
+	<Card card=card @onClick="click(card)">
+}
+
+
+click(card) {
+	
+}
+
+
+
+
+- [ ] GET /api/scores
+- [ ] POST /api/scores
+
+SCORE: {
+	userName: STRING,
+	timeSpentMS: NUMBER,
+	
+}
+
