@@ -11,6 +11,8 @@ Memories game for Ecole O'Clock
 | -- | -- |
 | ![](https://user-images.githubusercontent.com/18345624/126913267-5f47f156-8aed-40a1-a2b7-4f9458b7ad9f.png)  | ![](https://user-images.githubusercontent.com/18345624/126913265-6cc45d45-3f4b-45b8-8fc3-5bbf9a1f64ef.png)  |
 
+:warning: Note: I slightly updated the code *after* the deadline to include a proper HTML file, as explained below. I think the result is clearer for readers. I kept old code on `master` for transparency, but I recommand to read the [dev branch](https://github.com/Shrakka/memories/tree/dev). :warning:
+
 ## Set up locally
 
 <details><summary>
@@ -85,9 +87,14 @@ Tutorial
 Why does it work?
 </summary>
 
-* The NodeJS code in the project is using `process.env.<variable>`.
-* On your local, it's equal to the content of the `.env` file.
-* On Heroku, there exists a similar `.env` file, which you cannot edit, that will point to the right values ('production' node env, open http port, and database URL that you just created)
+* Env file:
+    * The NodeJS code in the project is using `process.env.<variable>`.
+    * On your local, it's equal to the content of the `.env` file.
+    * On Heroku, there exists a similar `.env` file, which you cannot edit, that will point to the right values ('production' node env, open http port, and database URL that you just created)
+* Npm scripts:
+    * Heroky deploy script automatically search for your `package.json` scripts:
+        * It will call the `build` script first => therefore, it will compile the client code.
+        * It will then call the `start` script => therefore, the server will start!
 
 </details>
 
