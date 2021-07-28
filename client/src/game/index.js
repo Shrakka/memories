@@ -2,7 +2,6 @@ import "./game.scss";
 import { Board, Timer } from "./models";
 import { buildBoardHTML, buildTimerHTML } from "./components";
 
-let gameElement; // Reference to the game DOM element
 let cardElements; // Reference to cards DOM elements
 let timerElement; // Reference to timer DOM element
 
@@ -12,8 +11,6 @@ let timer; // Model for the timer
 let interval; // timer setInterval reference
 
 export function startGame() {
-    gameElement = document.getElementById("game");
-
     board = new Board({ nbOfCards: 10 });
     timer = new Timer({ maxTimeMS: 60 * 1000 });
 
@@ -22,9 +19,9 @@ export function startGame() {
 }
 
 function loadBoard() {
+    const boardContainerElement = document.getElementById("board-container");
     const cardIndexes = board.getCardIndexes();
-    const boardHTML = buildBoardHTML(cardIndexes);
-    gameElement.insertAdjacentHTML("beforeend", boardHTML);
+    boardContainerElement.innerHTML = buildBoardHTML(cardIndexes);
 
     cardElements = document.querySelectorAll(".card");
     cardElements.forEach((cardElement, cardPosition) => {
@@ -33,9 +30,8 @@ function loadBoard() {
 }
 
 function loadTimer() {
-    const timerHTML = buildTimerHTML();
-    gameElement.insertAdjacentHTML("beforeend", timerHTML);
-
+    const timerContainerElement = document.getElementById("timer-container");
+    timerContainerElement.insertAdjacentHTML("beforeend", buildTimerHTML());
     timerElement = document.getElementById("timer");
     startTimer();
 }
@@ -71,6 +67,7 @@ function handleCardClick(cardPosition) {
     function showCard(cardPosition) {
         cardElements[cardPosition].classList.add("selected");
     }
+
     function hideCard(cardPosition) {
         cardElements[cardPosition].classList.remove("selected");
     }
@@ -90,10 +87,9 @@ function handleCardClick(cardPosition) {
     }
 
     async function handleVictory() {
-        clearInterval(interval);
+        clearInterval(interval); // Avoid memory leak: clear your intervals!
         const timeSpentMS = timer.getTimeSpentMS();
         document.dispatchEvent(new CustomEvent("game:victory", { detail: timeSpentMS }));
-        gameElement.innerHTML = "";
     }
 }
 
@@ -105,9 +101,8 @@ function startTimer() {
 
     interval = setInterval(() => {
         if (timer.isFinished()) {
-            clearInterval(interval);
+            clearInterval(interval); // Avoid memory leak: clear your intervals!
             document.dispatchEvent(new Event("game:time-up"));
-            gameElement.innerHTML = "";
         } else {
             timer.increment(incrementationTimeMS);
             const percent = timer.getCompletionInPercent();

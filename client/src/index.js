@@ -12,28 +12,39 @@ function setupHome() {
 }
 
 async function returnHomeAfterVictory(event) {
-    const completionTimeMS = event.detail;
-    const completionTimeSeconds = Math.floor(completionTimeMS / 1000);
-    const userName = prompt(`
-        You won in ${completionTimeSeconds} seconds!\n
-        Enter your name to appear in the leaderboard!\n
-        And win your chance to get a free JavaScript lessons at Ecole O'clock!\n
-    `);
-    if (userName && userName.trim() !== "") {
-        await saveStatistic({ userName, completionTimeMS });
-    }
+    await promptAndSaveUserScore();
+
+    hideGame();
     displayHome();
+
     await fetchAndDisplayStatistics(); // In case some users made attempts while user was still playing, better fetch everything again!
+
+
+    async function promptAndSaveUserScore() {
+        const completionTimeMS = event.detail;
+        const completionTimeSeconds = Math.floor(completionTimeMS / 1000);
+        const userName = prompt(`
+            You won in ${completionTimeSeconds} seconds!\n
+            Enter your name to appear in the leaderboard!\n
+            And win your chance to get a free JavaScript lessons at Ecole O'clock!\n
+        `);
+        if (userName && userName.trim() !== "") {
+            await saveStatistic({ userName, completionTimeMS });
+        }
+    }
 }
 
 async function returnHomeAfterDefeat() {
     alert(`
-        Times up!\n
-        Unfortunately you have reached the countdown limit... 😿\n
-        Try again!
+    Times up!\n
+    Unfortunately you have reached the countdown limit... 😿\n
+    Try again!
     `
     );
+
+    hideGame();
     displayHome();
+
     await fetchAndDisplayStatistics();
 }
 
@@ -53,6 +64,11 @@ async function fetchAndDisplayStatistics() {
     statistics.forEach(statistic => {
         statisticsElement.insertAdjacentHTML("beforeend", buildStatisticHTML(statistic));
     });
+}
+
+function hideGame() {
+    document.getElementById("board-container").innerHTML = "";
+    document.getElementById("timer-container").innerHTML = "";
 }
 
 function hideHome() {
