@@ -5,21 +5,12 @@ import { fetchOrderedStatistics } from "./service";
 let leaderboardElement;
 
 export async function loadLeaderBoard(buttonCallback) {
-    leaderboardElement = document.getElementById("leaderboard");
+    bindButtonActions();
+    fetchAndDisplayStatistics();
 
-    loadTitle();
-    loadButton();
-    loadStatistics();
-
-    function loadTitle() {
-        const titleElement = document.createElement("h1");
-        titleElement.innerText = "Memories";
-        leaderboardElement.appendChild(titleElement);
-    }
-
-    async function loadStatistics() {
-        const statisticsElement = document.createElement("ol");
-        leaderboardElement.appendChild(statisticsElement);
+    async function fetchAndDisplayStatistics() {
+        const statisticsElement = document.getElementById("statistics");
+        statisticsElement.innerHTML = "";
 
         const statistics = await fetchOrderedStatistics();
         statistics.forEach(statistic => {
@@ -27,13 +18,11 @@ export async function loadLeaderBoard(buttonCallback) {
         });
     }
 
-    function loadButton() {
-        const button = document.createElement("button");
-        button.innerHTML = "Start Game!";
-        leaderboardElement.appendChild(button);
-
-        button.addEventListener("click", () => {
-            leaderboardElement.innerHTML = "";
+    function bindButtonActions() {
+        const buttonElement = document.getElementById("button");
+        buttonElement.addEventListener("click", () => {
+            leaderboardElement = document.getElementById("leaderboard");
+            leaderboardElement.style.display = "none";
             buttonCallback();
         });
     }
