@@ -7,7 +7,7 @@ Memories game for Ecole O'Clock
 
 [Online demo](https://memories-oclock.herokuapp.com/)
 
-| Leaderboard | Game |
+| Home | Game |
 | -- | -- |
 | ![](https://user-images.githubusercontent.com/18345624/126913267-5f47f156-8aed-40a1-a2b7-4f9458b7ad9f.png)  | ![](https://user-images.githubusercontent.com/18345624/126913265-6cc45d45-3f4b-45b8-8fc3-5bbf9a1f64ef.png)  |
 
@@ -185,7 +185,7 @@ I missed simple HTML 😭 I had the (weird) idea to completely generate the HTML
 </summary>
 
 <details><summary>
-It would have been simpler (and easier to understand for students - easier to maintain) to create two HTML pages, one for each of the app pages (leaderboard < - > game), and include them in the `dist` build via webpack:
+It would have been simpler (and easier to understand for students - easier to maintain) to create two HTML pages, one for each of the app pages (home < - > game), and include them in the `dist` build via webpack:
 </summary>
 
 ```

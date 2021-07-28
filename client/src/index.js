@@ -1,14 +1,17 @@
 import "./assets/_globals.scss"
 import { startGame } from "./game";
-import { loadLeaderBoard } from "./leaderboard"
-import { saveStatistic } from "./leaderboard/service";
+import { saveStatistic, fetchOrderedStatistics, buildStatisticHTML } from "./home";
 
-document.addEventListener("DOMContentLoaded", setupLeaderboard);
-document.addEventListener("game:victory", returnToLeaderBoardAfterVictory);
-document.addEventListener("game:time-up", returnToLeaderBoardAfterDefeat);
+document.addEventListener("DOMContentLoaded", setupHome);
+document.addEventListener("game:victory", returnHomeAfterVictory);
+document.addEventListener("game:time-up", returnHomeAfterDefeat);
 
+function setupHome() {
+    bindButtonAction();
+    fetchAndDisplayStatistics();
+}
 
-async function returnToLeaderBoardAfterVictory(event) {
+async function returnHomeAfterVictory(event) {
     const completionTimeMS = event.detail;
     const completionTimeSeconds = Math.floor(completionTimeMS / 1000);
     const userName = prompt(`
@@ -19,20 +22,45 @@ async function returnToLeaderBoardAfterVictory(event) {
     if (userName && userName.trim() !== "") {
         await saveStatistic({ userName, completionTimeMS });
     }
-
-    setupLeaderboard();
+    displayHome();
+    await fetchAndDisplayStatistics(); // In case some users made attempts while user was still playing, better fetch everything again!
 }
 
-async function returnToLeaderBoardAfterDefeat() {
+async function returnHomeAfterDefeat() {
     alert(`
         Times up!\n
         Unfortunately you have reached the countdown limit... 😿\n
         Try again!
     `
     );
-    setupLeaderboard();
+    displayHome();
+    await fetchAndDisplayStatistics();
 }
 
-function setupLeaderboard() {
-    loadLeaderBoard(startGame);
+function bindButtonAction() {
+    const buttonElement = document.getElementById("button");
+    buttonElement.addEventListener("click", () => {
+        hideHome();
+        startGame();
+    });
+}
+
+async function fetchAndDisplayStatistics() {
+    const statisticsElement = document.getElementById("statistics");
+    statisticsElement.innerHTML = "";
+
+    const statistics = await fetchOrderedStatistics();
+    statistics.forEach(statistic => {
+        statisticsElement.insertAdjacentHTML("beforeend", buildStatisticHTML(statistic));
+    });
+}
+
+function hideHome() {
+    const homeElement = document.getElementById("home");
+    homeElement.style.display = "none";
+}
+
+function displayHome() {
+    const homeElement = document.getElementById("home");
+    homeElement.style.display = "";
 }
