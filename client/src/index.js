@@ -13,10 +13,8 @@ function setupHome() {
 
 async function returnHomeAfterVictory(event) {
     await promptAndSaveUserScore();
-
     hideGame();
     displayHome();
-
     await fetchAndDisplayStatistics(); // In case some users made attempts while user was still playing, better fetch everything again!
 
 
@@ -36,15 +34,12 @@ async function returnHomeAfterVictory(event) {
 
 async function returnHomeAfterDefeat() {
     alert(`
-    Times up!\n
-    Unfortunately you have reached the countdown limit... 😿\n
-    Try again!
-    `
-    );
-
+        Times up!\n
+        Unfortunately you have reached the countdown limit... 😿\n
+        Try again!
+    `);
     hideGame();
     displayHome();
-
     await fetchAndDisplayStatistics();
 }
 
