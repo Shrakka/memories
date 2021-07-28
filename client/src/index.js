@@ -3,11 +3,6 @@ import { startGame } from "./game";
 import { loadLeaderBoard } from "./leaderboard"
 import { saveStatistic } from "./leaderboard/service";
 
-document.body.innerHTML = /* html */`
-    <div id="leaderboard"></div>
-    <div id="game"></div>
-`;
-
 document.addEventListener("DOMContentLoaded", setupLeaderboard);
 document.addEventListener("game:victory", returnToLeaderBoardAfterVictory);
 document.addEventListener("game:time-up", returnToLeaderBoardAfterDefeat);

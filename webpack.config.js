@@ -25,9 +25,9 @@ module.exports = {
 };
 
 function buildHTMLFileConfig() {
-    // Generates HTML file in the client build
+    // Generates HTML file in the client build from the src/index.html file
     return new HtmlWebpackPlugin({
-        title: "Memories"
+        template: "./client/src/index.html",
     });
 }
 function buildSCSSLoader() {
